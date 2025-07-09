@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { BarChart } from "@mui/x-charts/BarChart";
 
@@ -16,6 +16,7 @@ const Card = styled.div`
     padding: 16px;
   }
 `;
+
 const Title = styled.div`
   font-weight: 600;
   font-size: 16px;
@@ -26,6 +27,13 @@ const Title = styled.div`
 `;
 
 const WeeklyStatCard = ({ data }) => {
+  // Optional: Log when data changes for debugging
+  useEffect(() => {
+    if (data?.totalWeeksCaloriesBurnt) {
+      console.log("WeeklyStatCard data updated:", data.totalWeeksCaloriesBurnt);
+    }
+  }, [data?.totalWeeksCaloriesBurnt]);
+
   return (
     <Card>
       <Title>Weekly Calories Burned</Title>

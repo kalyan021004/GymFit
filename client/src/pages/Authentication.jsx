@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import LogoImage from "../utils/Images/Logo.png";
 import AuthImage from "../utils/Images/AuthImage.jpg";
@@ -7,13 +7,14 @@ import SignUp from "../components/SignUp";
 
 const Container = styled.div`
   flex: 1;
-  height: 100%;
+  height: 100vh;
   display: flex;
   background: ${({ theme }) => theme.bg};
   @media (max-width: 700px) {
     flex-direction: column;
   }
 `;
+
 const Left = styled.div`
   flex: 1;
   position: relative;
@@ -21,6 +22,7 @@ const Left = styled.div`
     display: none;
   }
 `;
+
 const Logo = styled.img`
   position: absolute;
   width: 70px;
@@ -28,6 +30,7 @@ const Logo = styled.img`
   left: 60px;
   z-index: 10;
 `;
+
 const Image = styled.img`
   position: relative;
   height: 100%;
@@ -46,6 +49,14 @@ const Right = styled.div`
   justify-content: center;
 `;
 
+const Title = styled.h2`
+  font-size: 28px;
+  font-weight: 700;
+  color: ${({ theme }) => theme.primary};
+  margin-bottom: 20px;
+  text-align: center;
+`;
+
 const Text = styled.div`
   font-size: 16px;
   text-align: center;
@@ -55,6 +66,7 @@ const Text = styled.div`
     font-size: 14px;
   }
 `;
+
 const TextButton = styled.span`
   color: ${({ theme }) => theme.primary};
   cursor: pointer;
@@ -64,19 +76,25 @@ const TextButton = styled.span`
 
 const Authentication = () => {
   const [login, setLogin] = useState(false);
+
+  useEffect(() => {
+    document.title = "GymFit";
+  }, []);
+
   return (
     <Container>
       <Left>
-        <Logo src={LogoImage} />
-        <Image src={AuthImage} />
+        <Logo src={LogoImage} alt="GymFit Logo" />
+        <Image src={AuthImage} alt="Fitness" />
       </Left>
       <Right>
+        <Title>{login ? "Create Your GymFit Account" : "Welcome Back to GymFit"}</Title>
         {!login ? (
           <>
             <SignIn />
             <Text>
-              Don't have an account?{" "}
-              <TextButton onClick={() => setLogin(true)}>SignUp</TextButton>
+              Don&apos;t have an account?{" "}
+              <TextButton onClick={() => setLogin(true)}>Sign Up</TextButton>
             </Text>
           </>
         ) : (
@@ -84,7 +102,7 @@ const Authentication = () => {
             <SignUp />
             <Text>
               Already have an account?{" "}
-              <TextButton onClick={() => setLogin(false)}>SignIn</TextButton>
+              <TextButton onClick={() => setLogin(false)}>Sign In</TextButton>
             </Text>
           </>
         )}

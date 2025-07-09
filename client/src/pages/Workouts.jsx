@@ -13,63 +13,95 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
-  padding: 22px 0px;
-  overflow-y: scroll;
+  padding: 24px 16px;
+  background: ${({ theme }) => theme.bgLight};
+  overflow-y: auto;
 `;
+
 const Wrapper = styled.div`
   flex: 1;
-  max-width: 1600px;
+  max-width: 1400px;
   display: flex;
-  gap: 22px;
-  padding: 0px 16px;
+  gap: 24px;
+  padding: 0 12px;
+
   @media (max-width: 600px) {
-    gap: 12px;
     flex-direction: column;
+    gap: 16px;
+    padding: 0 8px;
   }
 `;
+
 const Left = styled.div`
-  flex: 0.2;
-  height: fit-content;
-  padding: 18px;
-  border: 1px solid ${({ theme }) => theme.text_primary + 20};
-  border-radius: 14px;
-  box-shadow: 1px 6px 20px 0px ${({ theme }) => theme.primary + 15};
-`;
-const Title = styled.div`
-  font-weight: 600;
-  font-size: 16px;
-  color: ${({ theme }) => theme.primary};
+  flex: 0.25;
+  min-width: 260px;
+  padding: 20px;
+  border: 1px solid ${({ theme }) => theme.text_primary}33;  /* 20% opacity */
+  border-radius: 16px;
+  box-shadow: 0 4px 12px ${({ theme }) => theme.shadow};
+  background: ${({ theme }) => theme.card};
+
   @media (max-width: 600px) {
-    font-size: 14px;
+    flex: none;
+    width: 100%;
+    padding: 16px;
   }
 `;
+
+const Title = styled.div`
+  font-weight: 700;
+  font-size: 18px;
+  color: ${({ theme }) => theme.primary};
+  margin-bottom: 16px;
+
+  @media (max-width: 600px) {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+`;
+
 const Right = styled.div`
   flex: 1;
+  min-width: 300px;
+  background: ${({ theme }) => theme.bgLight};
+  padding: 10px 0;
 `;
-const CardWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 100px;
-  @media (max-width: 600px) {
-    gap: 12px;
-  }
-`;
+
 const Section = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0px 16px;
-  gap: 22px;
-  padding: 0px 16px;
+  gap: 24px;
+  padding: 0 8px;
+
   @media (max-width: 600px) {
-    gap: 12px;
+    gap: 16px;
   }
 `;
+
 const SecTitle = styled.div`
-  font-size: 22px;
+  font-size: 24px;
+  font-weight: 600;
   color: ${({ theme }) => theme.text_primary};
-  font-weight: 500;
+  border-bottom: 2px solid ${({ theme }) => theme.primary};
+  padding-bottom: 6px;
+  margin-bottom: 16px;
+
+  @media (max-width: 600px) {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+`;
+
+const CardWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  margin-bottom: 80px;
+
+  @media (max-width: 600px) {
+    gap: 16px;
+  }
 `;
 
 const Workouts = () => {
@@ -91,26 +123,25 @@ const Workouts = () => {
   useEffect(() => {
     getTodaysWorkout();
   }, [date]);
+
   return (
     <Container>
       <Wrapper>
         <Left>
           <Title>Select Date</Title>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateCalendar
-              onChange={(e) => setDate(`${e.$M + 1}/${e.$D}/${e.$y}`)}
-            />
+            <DateCalendar onChange={(e) => setDate(`${e.$M + 1}/${e.$D}/${e.$y}`)} />
           </LocalizationProvider>
         </Left>
         <Right>
           <Section>
-            <SecTitle>Todays Workout</SecTitle>
+            <SecTitle>Today's Workout</SecTitle>
             {loading ? (
-              <CircularProgress />
+              <CircularProgress color="primary" />
             ) : (
               <CardWrapper>
                 {todaysWorkouts.map((workout) => (
-                  <WorkoutCard workout={workout} />
+                  <WorkoutCard key={workout._id || workout.id} workout={workout} />
                 ))}
               </CardWrapper>
             )}

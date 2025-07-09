@@ -48,5 +48,7 @@ const startServer = async () => {
     console.log(error);
   }
 };
+console.log("All env vars:", process.env);
+console.log("JWT specifically:", process.env.JWT);
 
 startServer();

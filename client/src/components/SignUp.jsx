@@ -13,11 +13,13 @@ const Container = styled.div`
   flex-direction: column;
   gap: 36px;
 `;
+
 const Title = styled.div`
   font-size: 30px;
   font-weight: 800;
   color: ${({ theme }) => theme.text_primary};
 `;
+
 const Span = styled.div`
   font-size: 16px;
   font-weight: 400;
@@ -43,21 +45,42 @@ const SignUp = () => {
   const handelSignUp = async () => {
     setLoading(true);
     setButtonDisabled(true);
+    
     if (validateInputs()) {
-      await UserSignUp({ name, email, password })
-        .then((res) => {
+      try {
+        const res = await UserSignUp({ name, email, password });
+        
+        // ✅ Safety check for response
+        if (res && res.data) {
           dispatch(loginSuccess(res.data));
-          alert("Account Created Success");
-          setLoading(false);
-          setButtonDisabled(false);
-        })
-        .catch((err) => {
+          alert("Account Created Successfully");
+        } else {
+          throw new Error("Invalid response from server");
+        }
+        
+      } catch (err) {
+        console.error("Signup error:", err);
+        
+        // ✅ Better error handling
+        if (err.response && err.response.data && err.response.data.message) {
           alert(err.response.data.message);
-          setLoading(false);
-          setButtonDisabled(false);
-        });
+        } else if (err.message) {
+          alert(err.message);
+        } else {
+          alert("Signup failed. Please try again.");
+        }
+      } finally {
+        // ✅ Always reset loading state
+        setLoading(false);
+        setButtonDisabled(false);
+      }
+    } else {
+      // ✅ Reset loading state if validation fails
+      setLoading(false);
+      setButtonDisabled(false);
     }
   };
+
   return (
     <Container>
       <div>

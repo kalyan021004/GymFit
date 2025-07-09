@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { PieChart } from "@mui/x-charts/PieChart";
 
@@ -16,6 +16,7 @@ const Card = styled.div`
     padding: 16px;
   }
 `;
+
 const Title = styled.div`
   font-weight: 600;
   font-size: 16px;
@@ -26,6 +27,13 @@ const Title = styled.div`
 `;
 
 const CategoryChart = ({ data }) => {
+  // Optional: Log when data changes for debugging
+  useEffect(() => {
+    if (data?.pieChartData) {
+      console.log("CategoryChart data updated:", data.pieChartData);
+    }
+  }, [data?.pieChartData]);
+
   return (
     <Card>
       <Title>Weekly Calories Burned</Title>

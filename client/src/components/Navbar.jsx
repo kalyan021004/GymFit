@@ -7,146 +7,152 @@ import { Avatar } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/reducers/userSlice";
 
+// Navbar container
 const Nav = styled.div`
-  background-color: ${({ theme }) => theme.bg};
+  background: linear-gradient(90deg, #1f2937, #4f46e5);
   height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
   position: sticky;
   top: 0;
-  z-index: 10;
-  color: white;
+  z-index: 1000;
   border-bottom: 1px solid ${({ theme }) => theme.text_secondary + 20};
 `;
+
+// Inner wrapper
 const NavContainer = styled.div`
   width: 100%;
   max-width: 1400px;
   padding: 0 24px;
   display: flex;
-  gap: 14px;
   align-items: center;
   justify-content: space-between;
-  font-size: 1rem;
 `;
+
+// Logo container
 const NavLogo = styled(LinkR)`
-  width: 100%;
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 0 6px;
-  font-weight: 600;
-  font-size: 18px;
+  gap: 10px;
   text-decoration: none;
-  color: ${({ theme }) => theme.black};
+  font-weight: bold;
+  font-size: 22px;
+  color: #ffffff;
 `;
+
 const Logo = styled.img`
-  height: 42px;
+  height: 44px;
 `;
+
+// Mobile menu icon
 const Mobileicon = styled.div`
-  color: ${({ theme }) => theme.text_primary};
+  color: #ffffff;
   display: none;
+  cursor: pointer;
+
   @media screen and (max-width: 768px) {
     display: flex;
     align-items: center;
   }
 `;
 
+// Nav items desktop
 const NavItems = styled.ul`
-  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 32px;
-  padding: 0 6px;
+  gap: 28px;
   list-style: none;
 
   @media screen and (max-width: 768px) {
     display: none;
   }
 `;
+
+// Styled link
 const Navlink = styled(NavLink)`
-  display: flex;
-  align-items: center;
-  color: ${({ theme }) => theme.text_primary};
+  color: #e5e7eb;
   font-weight: 500;
-  cursor: pointer;
-  transition: all 1s slide-in;
-  text-decoration: none;
-  &:hover {
-    color: ${({ theme }) => theme.primary};
-  }
-  &.active {
-    color: ${({ theme }) => theme.primary};
-    border-bottom: 1.8px solid ${({ theme }) => theme.primary};
-  }
-`;
-
-const UserContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: flex-end;
-  gap: 16px;
-  align-items: center;
-  padding: 0 6px;
-  color: ${({ theme }) => theme.primary};
-`;
-const TextButton = styled.div`
-  text-align: end;
-  color: ${({ theme }) => theme.secondary};
-  cursor: pointer;
   font-size: 16px;
+  text-decoration: none;
   transition: all 0.3s ease;
-  font-weight: 600;
+
   &:hover {
-    color: ${({ theme }) => theme.primary};
+    color: #22c55e;
+  }
+
+  &.active {
+    color: #22c55e;
+    border-bottom: 2px solid #22c55e;
   }
 `;
 
+// Avatar + logout
+const UserContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+`;
+
+const TextButton = styled.div`
+  color: #ef4444;
+  cursor: pointer;
+  font-weight: 600;
+
+  &:hover {
+    color: #f87171;
+  }
+`;
+
+// Mobile menu
 const MobileMenu = styled.ul`
   display: flex;
   flex-direction: column;
-  align-items: start;
-  gap: 16px;
-  padding: 0 6px;
-  list-style: none;
-  width: 90%;
-  padding: 12px 40px 24px 40px;
-  background: ${({ theme }) => theme.bg};
+  align-items: flex-start;
+  gap: 18px;
   position: absolute;
   top: 80px;
   right: 0;
-  transition: all 0.6s ease-in-out;
+  background-color: #1f2937;
+  padding: 20px 40px;
+  border-radius: 0 0 12px 12px;
+  list-style: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   transform: ${({ isOpen }) =>
     isOpen ? "translateY(0)" : "translateY(-100%)"};
-  border-radius: 0 0 20px 20px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-  opacity: ${({ isOpen }) => (isOpen ? "100%" : "0")};
-  z-index: ${({ isOpen }) => (isOpen ? "1000" : "-1000")};
+  opacity: ${({ isOpen }) => (isOpen ? "1" : "0")};
+  transition: all 0.4s ease-in-out;
+  z-index: 999;
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
 `;
 
 const Navbar = ({ currentUser }) => {
   const dispatch = useDispatch();
   const [isOpen, setisOpen] = useState(false);
+
   return (
     <Nav>
       <NavContainer>
         <Mobileicon onClick={() => setisOpen(!isOpen)}>
-          <MenuRounded sx={{ color: "inherit" }} />
+          <MenuRounded sx={{ fontSize: 28 }} />
         </Mobileicon>
+
         <NavLogo to="/">
-          <Logo src={LogoImg} />
-          Fittrack
+          <Logo src={LogoImg} alt="GymFit Logo" />
+          <span>
+            Gym<span style={{ color: "#22C55E" }}>Fit</span>
+          </span>
         </NavLogo>
 
         <MobileMenu isOpen={isOpen}>
-          <Navlink to="/">Dashboard</Navlink>
-          <Navlink to="/workouts">Workouts</Navlink>
-          <Navlink to="/tutorials">Tutorials</Navlink>
-          <Navlink to="/blogs">Blogs</Navlink>
-          <Navlink to="/contact">Contact</Navlink>
+          <Navlink to="/" onClick={() => setisOpen(false)}>🏠 Dashboard</Navlink>
+          <Navlink to="/workouts" onClick={() => setisOpen(false)}>🏋️ Workouts</Navlink>
+          <Navlink to="/tutorials" onClick={() => setisOpen(false)}>🎥 Tutorials</Navlink>
+          <Navlink to="/blogs" onClick={() => setisOpen(false)}>📝 Blogs</Navlink>
+          <Navlink to="/contact" onClick={() => setisOpen(false)}>📞 Contact</Navlink>
         </MobileMenu>
 
         <NavItems>
@@ -158,7 +164,9 @@ const Navbar = ({ currentUser }) => {
         </NavItems>
 
         <UserContainer>
-          <Avatar src={currentUser?.img}>{currentUser?.name[0]}</Avatar>
+          <Avatar sx={{ bgcolor: "#4F46E5" }} src={currentUser?.img}>
+            {currentUser?.name?.[0]?.toUpperCase()}
+          </Avatar>
           <TextButton onClick={() => dispatch(logout())}>Logout</TextButton>
         </UserContainer>
       </NavContainer>

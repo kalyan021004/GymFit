@@ -20,51 +20,55 @@ const Button = styled.div`
     padding: 8px 12px;
   }
 
-  ${({ type, theme }) =>
-    type === "secondary"
+  ${({ $type, theme }) =>
+    $type === "secondary"
       ? `
   background: ${theme.secondary};
-border: 1px solid ${({ theme }) => theme.secondary};
+  border: 1px solid ${theme.secondary};
   `
       : `
   background: ${theme.primary};
 `}
 
-  ${({ isDisabled }) =>
-    isDisabled &&
+  ${({ $isDisabled }) =>
+    $isDisabled &&
     `
   opacity: 0.8;
   cursor: not-allowed;
-
   `}
-  ${({ isLoading }) =>
-    isLoading &&
+  
+  ${({ $isLoading }) =>
+    $isLoading &&
     `
     opacity: 0.8;
-  cursor: not-allowed;
-`}
-${({ flex }) =>
-    flex &&
+    cursor: not-allowed;
+  `}
+  
+  ${({ $flex }) =>
+    $flex &&
     `
     flex: 1;
-`}
+  `}
 
-${({ small }) =>
-    small &&
+  ${({ $small }) =>
+    $small &&
     `
-padding: 10px 28px;
-`}
-  ${({ outlined, theme }) =>
-    outlined &&
+    padding: 10px 28px;
+  `}
+  
+  ${({ $outlined, theme }) =>
+    $outlined &&
     `
-background: transparent;
-color: ${theme.primary};
-  box-shadow: none;
-`}
-  ${({ full }) =>
-    full &&
+    background: transparent;
+    color: ${theme.primary};
+    box-shadow: none;
+  `}
+  
+  ${({ $full }) =>
+    $full &&
     `
-  width: 100%;`}
+    width: 100%;
+  `}
 `;
 
 const button = ({
@@ -83,13 +87,13 @@ const button = ({
   return (
     <Button
       onClick={() => !isDisabled && !isLoading && onClick()}
-      isDisabled={isDisabled}
-      type={type}
-      isLoading={isLoading}
-      flex={flex}
-      small={small}
-      outlined={outlined}
-      full={full}
+      $isDisabled={isDisabled}
+      $type={type}
+      $isLoading={isLoading}
+      $flex={flex}
+      $small={small}
+      $outlined={outlined}
+      $full={full}
     >
       {isLoading && (
         <CircularProgress
