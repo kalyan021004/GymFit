@@ -99,17 +99,15 @@ GymFit/
 
 ## 🛠️ Built With
 
-- **Frontend**: React.js / HTML5 / CSS3 / JavaScript
+- **Frontend**: React.js / JavaScript
 - **Backend**: Node.js / Express.js (if applicable)
-- **Database**: MongoDB / MySQL / PostgreSQL (specify your choice)
-- **Authentication**: JWT / Firebase Auth
-- **Styling**: CSS3 / Styled Components / Material-UI / Tailwind CSS
+- **Database**: MongoDB 
+- **Authentication**: JWT 
+- **Styling**: CSS3 / Styled Components 
 - **State Management**: Redux / Context API
 - **API Integration**: Axios / Fetch API
 
-## 📱 Screenshots
 
-*Add screenshots of your application here to showcase the UI/UX*
 
 ## 🎯 Usage
 
@@ -131,13 +129,6 @@ GymFit/
 ### Environment Variables
 Create a `.env` file in the root directory:
 
-```env
-REACT_APP_API_URL=your_api_url_here
-REACT_APP_EXERCISE_API_KEY=your_exercise_api_key
-REACT_APP_FIREBASE_CONFIG=your_firebase_config
-DATABASE_URL=your_database_url
-JWT_SECRET=your_jwt_secret
-```
 
 
 
